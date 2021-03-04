@@ -6,8 +6,9 @@ import Select from "react-select";
 function Table() {
   const [users, setUser] = useState({
     employees: [],
-    filteredEmployees: [],
+    searchValue: "",
   });
+
   useEffect(() => {
     const data = fetch("https://randomuser.me/api/?results=5");
     data
@@ -15,26 +16,13 @@ function Table() {
       .then((response) => setUser({ employees: response.results }));
   }, []);
 
-  // const handleFilterClick = () => {
-  //   console.log("clicked");
+  let filteredEmployees = users.employees.filter((people) => {
+    return people.email.toLowerCase().indexOf(users.searchValue) != -1;
+  });
 
-  // };
+  // let sortedEmployees = () => {
 
-  const handleInputChange = () => {
-    console.log("input changed");
-    //define state, update state, grab state from button click
-    const arr = [users.employees];
-    // console.log(arr);
-    const filteredArr = arr.filter(
-      () => event.target.value === users.employees.email
-    );
-    console.log(event.target.value);
-    setUser({ filteredEmployees: filteredArr });
-  };
-
-  const handleSortInputChange = () => {
-    console.log("sort input changed");
-  };
+  // }
 
   const options = [
     { value: "First Name", label: "Last Name" },
@@ -47,7 +35,9 @@ function Table() {
         type="text"
         name="filterInput"
         placeholder="Filter results by"
-        onChange={handleInputChange}
+        onChange={(event) =>
+          setUser({ ...users, searchValue: event.target.value })
+        }
       />
       <Select options={options} />
       <table className="table">
@@ -62,7 +52,7 @@ function Table() {
           </tr>
         </thead>
         <tbody>
-          {users.employees.map((employee, index) => (
+          {filteredEmployees.map((employee, index) => (
             <tr key={index}>
               <td>{employee.name.first}</td>
               <td>{employee.name.last}</td>

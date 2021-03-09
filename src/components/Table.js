@@ -1,59 +1,48 @@
 import { useState, useEffect } from "react";
-import "../styles.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Select from "react-select";
 
 function Table() {
   const [users, setUser] = useState({
     employees: [],
     searchValue: "",
-    filteredEmployees: [],
   });
+  const [filteredEmployeesState, setFilteredEmployeesState] = useState([]);
 
   useEffect(() => {
     const data = fetch("https://randomuser.me/api/?results=5");
     data
       .then((response) => response.json())
-      .then((response) => setUser({ employees: response.results }));
+      .then((response) =>
+        setUser((prevState) => {
+          return { ...prevState, employees: response.results };
+        })
+      );
   }, []);
-  // console.log(users.employees);
-  let filteredEmployees = users.employees.filter((people) => {
-    return people.email.toLowerCase().indexOf(users.searchValue) != -1;
-    // setUser({ ...users, filteredEmployees: filteredEmployees });
-  });
+  console.log(users.employees);
 
-  let sortedLastEmployees = () => {
-    return users.employees.sort((a, b) => {
-      return b.name.last.localeCompare(a.name.last);
+  useEffect(() => {
+    const filteredEmployees = () =>
+      users.employees.filter(
+        (people) => people.email.toLowerCase().indexOf(users.searchValue) !== -1
+      );
+
+    setFilteredEmployeesState(filteredEmployees);
+  }, [users.employees, users.searchValue]);
+
+  //Switch case to handle what's getting passed in.
+  let handleSort = (Last) => {
+    setFilteredEmployeesState((prevState) => {
+      return users.employees.sort((a, b) => {
+        return a.name.last.localeCompare(b.name.last);
+      });
     });
   };
-  let sortedFirstEmployees = () => {
-    const sortedUsers = [...users.employees];
-    const nameA = a.name.first;
-    const nameB = b.name.first;
 
-    if (nameA < nameB) {
-      return -1;
-    }
-    if (nameA > nameB) {
-      return 1;
-    }
-    {
-      return 0;
-    }
-    // setUser({ ...users, filteredEmployees: sortedUsers });
-  };
-  // console.log(filteredEmployees);
-
-  const options = [
-    { value: { sortedLastEmployees }, label: "Last Name" },
-    { value: { sortedFirstEmployees }, label: "First Name" },
-  ];
-  // console.log(options)
   return (
-    <div className="App">
+    <div className="App align-content-center text-center">
       <h1>Employee Info Table</h1>
       <input
+        className="mb-3"
         type="text"
         name="filterInput"
         placeholder="Filter results by"
@@ -61,16 +50,14 @@ function Table() {
           setUser({ ...users, searchValue: event.target.value })
         }
       />
-      <Select
-        options={options}
-        sortedLastEmployees={sortedLastEmployees}
-        sortedFirstEmployees={sortedFirstEmployees}
-      />
-      <table className="table">
+      <p>*Click "Last" to sort by last name.*</p>
+      <table className="table table-striped table-bordered">
         <thead>
           <tr>
             <th scope="col">First</th>
-            <th scope="col">Last</th>
+            <th value="Last" onClick={() => handleSort("Last")} scope="col">
+              Last
+            </th>
             <th scope="col">Email</th>
             <th scope="col">Birthdate</th>
             <th scope="col">Phone</th>
@@ -78,7 +65,7 @@ function Table() {
           </tr>
         </thead>
         <tbody>
-          {filteredEmployees.map((employee, index) => (
+          {filteredEmployeesState.map((employee, index) => (
             <tr key={index}>
               <td>{employee.name.first}</td>
               <td>{employee.name.last}</td>

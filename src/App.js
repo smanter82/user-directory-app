@@ -1,7 +1,6 @@
-import { useState, useEffect } from "react";
-import "./styles.css";
-import Table from "./components/Table";
+import React from "react";
+import PageContainer from "./components/PageContainer";
 
 export default function App() {
-  return <Table></Table>;
+  return <PageContainer></PageContainer>;
 }

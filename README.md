@@ -1,37 +1,50 @@
-# Unit 19 React Homework: Employee Directory
+# Employee Directory
 
-## Overview
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/${data.projectLicense})
 
-For this assignment, you'll create a employee directory with React. This assignment will require you to break up your application's UI into components, manage component state, and respond to user events.
+# Description
 
-## User Story
+<!-- Some wording taken from instructions readme -->
 
-- As a user, I want to be able to view my entire employee directory at once so that I have quick access to their information.
+This is an employee directory that allows the user to be able to view an entire employee directory at once, filter employees by name, and sort employees by last name.
 
-## Business Context
+## Screenshot
 
-An employee or manager would benefit greatly from being able to view non-sensitive data about other employees. It would be particularly helpful to be able to filter employees by name.
+![User_Directory](./public/images/user_directory_screenshot.png)
 
-## Acceptance Criteria
+## Deployed App
 
-Given a table of random users generated from the [Random User API](https://randomuser.me/), when the user loads the page, a table of employees should render.
+[Deployed_App](https://manter-user-directory.herokuapp.com/)
 
-The user should be able to:
+## Table of Contents
+
+[Installation](#Installation)
+
+[Usage](#Usage)
+
+[Questions](#Questions)
+
+## Installation
+
+Deployed on Heroku.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Usage
+
+<!-- Taken from instructions README -->
+
+The user is able to:
 
 - Sort the table by at least one category
 
 - Filter the users by at least one property.
 
-- Deploy this site to GitHub Pages using the [Create React App docs for deployment.](https://create-react-app.dev/docs/deployment/#github-pages)
+## Questions
 
-- **Important**: Be sure to push your codebase to GitHub and **NOT** your built and deployed code. Ensure this happens by following the above instructions and using the `gh-pages` branch to host the deployed application's code.
+Contact me with any feedback or questions through GitHub or by email.
 
-## Submission on BCS
+- [GitHub](https://github.com/smanter82)
 
-You are required to submit the following:
+- Email: sarahmanter@gmail.com
 
-- the URL to the deployed application
-
-- the URL to the Github repository
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Some code on this application may have been done in collaboration with my Bootcamp study group classmates: https://github.com/arensalmela, https://github.com/dmaysteinman, https://github.com/EddiePhi, https://github.com/ReindeerCode, https://github.com/DustinErwin, https://github.com/Ewager1, https://github.com/mdjonestwo, https://github.com/shannonquinn91/Note-Taker, https://github.com/JesalDM
